@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "console.h"
 
-const char long_time_ago[] = //"\n\n\n\n\n\n\n"
+const char long_time_ago[] = "\n\n\n\n\n\n\n"
 "\a\a\a"
 "   A  long time ago,\n\a"
 "in  a   galaxy  far,\n\a"
