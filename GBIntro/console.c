@@ -13,11 +13,9 @@
 
 #ifdef gbdk_stdio_fonts
 #define fix_for_gbdk_stdio_fonts	32
-#define empty_line U8CP("\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0")
 #define CURSOR_TILE '\x81'
 #else
 #define fix_for_gbdk_stdio_fonts	0
-#define empty_line U8CP("                    ")
 #define CURSOR_TILE '\x7f'
 #endif 
 
