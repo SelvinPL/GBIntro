@@ -117,8 +117,8 @@ void consoleLoop()
 	else if (console.copy_state == 3)
 	{
 		console.copy_state++;
-		// ... clear last line
-		set_bkg_tiles(0, console_start + console_lines - 1, 20, 1, U8CP(empty_line));
+		// ... clear last line vmemset should be better than set_bkg_tiles
+		vmemset((void*)(VRAM_ADDRESS + 32 * (console_start + console_lines - 1)), SPACE_CHAR - fix_for_gbdk_stdio_fonts, 20);
 	}
 	console.counter++;
 	if (console.counter == 4)
