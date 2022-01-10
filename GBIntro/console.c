@@ -5,7 +5,18 @@
 #define NEW_LINE_CHAR '\n'
 #define END_OF_STRING '\0'
 
+#define USE_BACKGROUND
+
+#ifdef USE_BACKGROUND
 #define VRAM_ADDRESS	0x9800
+#define set_tile_at_xy set_bkg_tile_xy
+#else
+#define VRAM_ADDRESS	0x9c00
+#define set_tile_at_xy set_win_tile_xy
+#endif
+
+
+
 #define console_lines	7
 #define console_start	8
 
@@ -59,7 +70,7 @@ void consoleLoop()
 			if (!(blink_state & 1))
 			{
 				uint8_t tile = ((blink_state == 4 || blink_state == 8) ? CURSOR_TILE : SPACE_CHAR);
-				set_bkg_tile_xy(console.x, console.y, tile - fix_for_gbdk_stdio_fonts);
+				set_tile_at_xy(console.x, console.y, tile - fix_for_gbdk_stdio_fonts);
 			}
 			console.cursor_blink_state--;
 		}
@@ -68,7 +79,7 @@ void consoleLoop()
 			uint8_t tile = (*console.data);
 			if (tile == NEW_LINE_CHAR)
 			{
-				set_bkg_tile_xy(console.x, console.y, SPACE_CHAR - fix_for_gbdk_stdio_fonts);
+				set_tile_at_xy(console.x, console.y, SPACE_CHAR - fix_for_gbdk_stdio_fonts);
 				console.x = 0;
 				console.y++;
 				if (console.y == console_start + console_lines)
@@ -85,10 +96,10 @@ void consoleLoop()
 			}
 			else if (tile != BLINK_CHAR)
 			{
-				set_bkg_tile_xy(console.x, console.y, tile - fix_for_gbdk_stdio_fonts);
+				set_tile_at_xy(console.x, console.y, tile - fix_for_gbdk_stdio_fonts);
 				if (*(console.data + 1) != BLINK_CHAR && console.x < 19)
 				{
-					set_bkg_tile_xy(console.x + 1, console.y, CURSOR_TILE - fix_for_gbdk_stdio_fonts);
+					set_tile_at_xy(console.x + 1, console.y, CURSOR_TILE - fix_for_gbdk_stdio_fonts);
 				}
 				console.x++;
 			}
